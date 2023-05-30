@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <h1>Checkout</h1>
+    <form action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+    
+
+        <table>
+            <tr>
+                <th>Book Title</td>
+                <th>Price</th>
+                <th>Quantity</td>
+            </tr>
+            {% for book_id in cart %}
+                <tr>
+                    <td>{{ titles[book_id] }}</td>
+                    <td>&euro;{{ cart[book_id]["price"] }}</td>
+                    <td>{{ cart[book_id]["quantity"] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p>
+            Total: {{ total }}
+        </p>
+        <br/>
+        {{ form.pay_now() }}
+
+        <p>
+            <a href="{{url_for('cart')}}">Return to cart</a>
+        </p>
+    </form>
+{% endblock %} 
+        

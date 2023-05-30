@@ -1,0 +1,89 @@
+/* Remember, design mobile first */
+@viewport {
+    width: device-width;
+}
+
+:root {
+    background-color: aquamarine;
+    --base-border-color: black;
+    --base-bg-color: khaki;
+    --base-bg-color-2: limegreen;
+
+}
+
+body {
+    width: 95%;
+    margin: 0.5em auto;
+}
+
+header {
+    grid-area: top;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    
+    padding: 1em; 
+    border: 2px solid var(--base-border-color);
+    background-color: var(--base-bg-color);
+
+    justify-content: flex-start;
+}
+
+
+header nav, header p{
+    flex: 0 0 100%;
+} 
+
+ul{ 
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    grid-area: mid;
+    padding: 1em;
+    border: 2px solid var(--base-border-color);
+    border-radius: 1em;
+    background-color: var(--base-bg-color-2);
+}
+
+footer {
+    grid-area: bottom;
+    padding: 1em; 
+    border: 2px solid var(--base-border-color);
+    background-color: var(--base-bg-color);
+}
+
+/* to centre width:1em auto */
+table {
+    border-collapse: collapse;  /* table css */
+    background-color: white;
+
+}
+td, th {                        /* table data and header affected here */
+    vertical-align: middle;
+    border: 1px solid var(--base-border-color);
+}
+
+th {
+    text-align: center;
+}
+
+.trash {
+    text-align: center;
+}
+
+@media screen and (min-width: 480px) {
+    body {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas: 'top'
+                             'mid'
+                             'bottom'  ;
+        row-gap: 3em;
+    }
+
+    
+}

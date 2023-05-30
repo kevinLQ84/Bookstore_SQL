@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <h2>Books</h2>
+    <form action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        {{ form.genre_search.label }}
+        {{ form.genre_search() }}
+
+        {{ form.title_search.label }}
+        {{ form.title_search() }}
+
+        {{ form.search() }}
+        {% if books %}
+            {% if discount < 1 %}
+                <p><b>{{"%.f" % ((1-discount)*100)}}% Discount Active</b></p>
+            {% endif %}
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                    <th>Details</th>
+                </tr>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book["title"] }}</td>
+                    <td>&euro;{{ "%.2f" % (book["price"]*discount) }}</td>
+                    <td>{{ book["name"] }}</td>
+                    <td>{{ book["description"] }}</td>
+                    <td>
+                        <a href="{{ url_for('book',book_id=book['book_id']) }}">
+                            View  
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>Whoops. No books found!</p>
+        {% endif %}
+        
+        {% if session["admin"] %}
+            <p>
+                <a href="{{ url_for('add_book')}}">Add Books</a>
+            </p>
+            <p>
+                <a href="{{ url_for('orders')}}">See Orders</a>
+            </p>
+        {% else %}
+            <p>
+                <a href="{{url_for('cart')}}">Your Cart</a>
+            </p>
+        {% endif %}
+    </form>
+{% endblock %} 
+    

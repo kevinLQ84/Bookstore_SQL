@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+       <section>
+           <p>To select multiple genres, press and hold ctrl/cmd key, then click the genres.</p>
+            {{ render_field(form.book_author) }}
+            <br/>
+            {{ render_field(form.book_title) }}
+            <br/>
+            {{ render_field(form.book_genre) }}
+            <br/>
+            {{ render_field(form.book_price) }}
+            <br/>
+            {{ render_field(form.book_desc) }}
+            <p>{{ message }}</p>
+            {{ form.submit }}
+        </section>
+    <p>
+        <a href="{{ url_for('books')}}">
+            To Books
+        </a>
+    </p>
+    </form>
+{% endblock %} 
+        

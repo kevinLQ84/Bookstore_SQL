@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+       <p>Username: <i>{{ session["user_id"] }}</i></p>
+       <p><b>To change any details, the password must be entered</b></p>
+       <p>Unentered changes will not occur</p>
+       {{render_field(form.old_password)}}
+       <section>
+           {% if not session["admin"]%}
+                {{render_field(form.new_user_id)}}
+                <br/>
+            {% endif %}
+           {{render_field(form.new_password)}}
+           <br/>
+           {{form.submit()}}
+           {% for change in changes%}
+                <p>{{change}}</p>
+            {% endfor %}
+        </section>
+
+        <p>
+            <a href="{{url_for('books')}}">Books</a>
+            <a href="{{url_for('orders')}}">Orders</a>
+        </p>
+        
+        
+    </form>
+{% endblock %} 
+        

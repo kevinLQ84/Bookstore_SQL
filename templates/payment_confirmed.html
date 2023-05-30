@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <h1>Your Payment is Confirmed</h1>
+    <p>Thank you {{g.user}} for shopping here at Cool Bookstore.
+        To download your digital receipt, please
+        <a download href="{{ url_for('static', filename=filepath) }}" >Click Here</a>
+        to obtain your digital receipt.
+    </p>
+    <p>
+        <a href="{{ url_for('books') }}">Back to shopping</a>
+    </p>
+{% endblock %} 
+        

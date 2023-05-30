@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <h2>Orders</h2>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        {% if session["admin"] %}
+            <section>
+                {{render_field(form.customer_id)}}
+
+                {{render_field(form.date)}}
+
+                {{form.submit()}}
+            </section>
+        {% endif %}
+        
+
+        {% if orders %}
+            <table>
+                <tr>
+                    {% if session["admin"] %}
+                        <th>Customer </th>
+                        <th>Book_id </th>
+                    {% endif %}
+                    <th>Book Title</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Date of Purchase</th>
+                </tr>
+                {% for order in orders %} 
+                    <tr>
+                        {% if session["admin"] %}
+                            <td>{{ order["user_id"] }}</td>
+                            <td>{{ order["book_id"] }}</td>
+                        {% endif %}                    
+                        <td>{{ order["title"] }}</td>
+                        <td>{{ order["quantity"] }}</td>
+                        <td>&euro;{{ "%.2f" % order["price"] }}</td>
+                        <td>{{ order["date"] }}</td>
+                    </tr>
+
+                {% endfor %}
+                </table>
+                <p>Total: &euro;{{"%.2f" % total}}</p>
+                <p>
+                    {% if session["admin"] %}
+                        <p>
+                            <a href="{{ url_for('books')}}">
+                            Back to Books  
+                            </a>
+                        </p>
+                    {% else %}
+                        <p>
+                            <a href="{{ url_for('account')}}">
+                            Back to Account
+                            </a>
+                        </p>
+                    {% endif %}
+                </p>
+
+        {% else %}
+            <p>No orders found</p>
+        {% endif %}
+        
+    </form>
+{% endblock %} 
+        

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block main_content %}
+    <h1>Your Cart</h1>
+    <p>For every second time you shop here, get a 10% discount on your next order!</p>
+    <form action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        {% if cart %}
+            <table>
+                <tr>
+                    <th>Book Title</td>
+                    <th>Price</th>
+                    <th>Quantity</td>
+                    <th>Edit</td>
+                    <th>Remove</td>
+                </tr>
+                {% for book_id in cart %}
+                    <tr>
+                        <td>{{ titles[book_id] }}</td>
+                        <td>&euro;{{ "%.2f" % cart[book_id]["price"] }}</td>
+                        <td>{{ cart[book_id]["quantity"] }}</td>
+                        <td> <a href="{{ url_for ('book', book_id=book_id)}}">Modify Total</a></td>
+                        <td class = "trash"><a  href="{{ url_for('add_to_cart', book_id=book_id, quantity=-999, price=cart[book_id]['price'] )}}">
+                            &#128465;
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <p>
+                Total: &euro;{{ total }}
+            </p>
+            <p>
+                To save your cart, simply head to the checkout.
+            </p>
+            {{ form.checkout() }}
+            
+        {% else %}
+            <p>Your cart is empty!</p>
+        {% endif %}
+        <p>
+            <a href="{{url_for('books')}}">To Books</a>
+        </p>
+    </form>
+    
+{% endblock %}

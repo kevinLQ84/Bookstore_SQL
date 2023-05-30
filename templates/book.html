@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block main_content %}
+
+<form action="" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    
+    <ul>
+        <li>
+            <h1>{{ book["title"]}}</h1>
+        </li>
+
+        <li>
+            {{ book["name"] }}
+        </li>
+
+        <li>Genres: 
+            {% for tag in genre %}
+                {{ tag["genre_name"] }}
+            {% endfor %}
+        </li>
+        <li>Price: &euro;{{ "%.2f" % (book["price"]*discount) }}</li>
+    </ul>
+
+    <p>{{ book["description"] }}</p>
+
+    {% if session["admin"] %}
+
+        <section>
+            {{render_field(form.edit_price)}}
+            <br/>
+            {{ form.delete_entry.label }}
+            {{ form.delete_entry() }}
+            <br/>
+            {{ form.confirm() }}
+        </section>
+        
+    {% else %}
+        <section>
+            <p>
+                {{render_field(form.quantity)}}
+                <br/>
+                {{ form.submit() }}
+            </p>
+            <p>
+                {% if cart_quantity %}
+                    Cart Amount: {{ cart_quantity }}
+                {% endif %}
+            </p> 
+        </section>  
+    {% endif %}
+    <p>
+        <a href="{{url_for('books')}}">To Books</a>
+    </p>
+    {% if not session["admin"] %}
+        <p>
+            <a href="{{url_for('cart')}}">Your Cart</a>
+        </p>
+    {% endif %}
+    
+</form>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% macro render_field(field) %}
+  {{ field.label }}
+  {{ field() }}
+    {% for error in field.errors %}
+      {{ error }}
+    {% endfor %}
+{% endmacro %}
+
+<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset= "UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>Cool Bookstore</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
+        <link rel="icon" href="{{ url_for('static', filename='smile_image_100x100px.png')}}"/>                   
+    </head>
+    
+    <body>
+        <header>
+            <img src="{{ url_for('static', filename='smile_image_25x25px.png')}}" alt='smile logo'/>
+            <h1>Cool Bookstore</h1>
+                {% if g.user %}
+                    <nav>
+                        <ul>
+                           <li> <a href="{{ url_for('account')}}">Account Details</a></li>
+                            <li><a href="{{ url_for('logout')}}">Logout</a></li>
+                        </ul>
+                    </nav>
+                {% else %}
+                    <nav>
+                        <ul>
+                            <li><a href="{{ url_for('register')}}">Register</a></li>
+                            <li><a href="{{ url_for('login')}}">Login</a></li>
+                        </ul>
+                    </nav>
+                {% endif %}
+        </header>
+
+        <main>
+        {% block main_content %}{% endblock %} 
+        </main>
+
+        <footer>
+            <h4>Cool Bookstore</h4>
+            <p>&copy;Special Unlimited Supplies</p>
+            <P>*<small>We don't actually physically exist, neither do these books.</small></P>
+            
+        </footer>
+
+    </body>
+    
+    </html>
+    
